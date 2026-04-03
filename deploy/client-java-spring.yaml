@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-java-spring
+  namespace: namespace-a
+  labels:
+    app: client-java-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-java-spring
+  template:
+    metadata:
+      labels:
+        app: client-java-spring
+    spec:
+      containers:
+      - name: client-java-spring
+        image: fstab/connection-info-evaluation_client_java-spring
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_EXPORTER_OTLP_METRICS_DEFAULT_HISTOGRAM_AGGREGATION
+          value: base2_exponential_bucket_histogram
+        #- name: OTEL_SERVICE_NAME
+        #  value: client-java-spring
+        #- name: OTEL_RESOURCE_ATTRIBUTES
+        #  value: "service.namespace=default,span.metrics.skip=true"
+        - name: OTEL_METRIC_EXPORT_INTERVAL
+          value: "10000"
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://$(NODE_IP):4318
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-java-spring
+  namespace: namespace-a
+spec:
+  selector:
+    app: client-java-spring
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

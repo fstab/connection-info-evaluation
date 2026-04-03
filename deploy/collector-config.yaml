@@ -1,0 +1,28 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  otlphttp/traces:
+    endpoint: http://tempo:4318
+  otlphttp/metrics:
+    endpoint: http://prometheus:9090/api/v1/otlp
+
+processors:
+  batch:
+  k8sattributes:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [k8sattributes, batch]
+      exporters: [otlphttp/traces]
+    metrics:
+      receivers: [otlp]
+      processors: [k8sattributes, batch]
+      exporters: [otlphttp/metrics]

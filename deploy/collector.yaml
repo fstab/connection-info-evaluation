@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: collector
+  namespace: monitoring
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: collector
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "namespaces", "nodes"]
+    verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collector
+subjects:
+  - kind: ServiceAccount
+    name: collector
+    namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: collector
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: collector
+  namespace: monitoring
+  labels:
+    app: collector
+spec:
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+    spec:
+      serviceAccountName: collector
+      containers:
+        - name: collector
+          image: otel/opentelemetry-collector-contrib
+          imagePullPolicy: IfNotPresent
+          args: ["--config=/config/collector-config.yaml"]
+          volumeMounts:
+            - mountPath: /config
+              name: collector-config
+          ports:
+          - containerPort: 4317
+            hostPort: 4317
+          - containerPort: 4318
+            hostPort: 4318
+      volumes:
+        - name: collector-config
+          configMap:
+            name: collector-config
