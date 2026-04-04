@@ -30,12 +30,27 @@ spec:
           #  value: "service.namespace=default,span.metrics.skip=true"
           - name: OTEL_METRIC_EXPORT_INTERVAL
             value: "10000"
+          # The OTel collector is deployed as a DaemonSet.
+          # We want to send telemetry to the collector instance running on the local node.
+          # So we get the node IP from the Kubernetes Downward API and set the OTLP endpoint to that IP.
           - name: NODE_IP
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: http://$(NODE_IP):4318
+          # Traffic to the local node goes through iptables NAT,
+          # so the collector sees the node IP as the source, not the pod IP.
+          # However, the k8s_attributes processor needs to know the pod IP.
+          # Therefore, we set the pod IP as a resource attribute and configure the
+          # k8s_attributes processor to take it from that resource attribute and not from the connection.
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: k8s.pod.ip=$(POD_IP)
+            # value: "k8s.pod.ip=$(POD_IP),service.namespace=default,span.metrics.skip=true"
 ---
 apiVersion: v1
 kind: Service

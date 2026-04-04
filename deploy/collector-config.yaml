@@ -7,22 +7,31 @@ receivers:
         endpoint: 0.0.0.0:4318
 
 exporters:
-  otlphttp/traces:
+  otlp_http/traces:
     endpoint: http://tempo:4318
-  otlphttp/metrics:
+  otlp_http/metrics:
     endpoint: http://prometheus:9090/api/v1/otlp
 
 processors:
   batch:
-  k8sattributes:
+  k8s_attributes:
+    wait_for_metadata: true
+    pod_association:
+      - sources:
+        - from: resource_attribute
+          name: k8s.pod.ip
+
 
 service:
+  telemetry:
+    logs:
+      level: debug
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [k8sattributes, batch]
-      exporters: [otlphttp/traces]
+      processors: [k8s_attributes, batch]
+      exporters: [otlp_http/traces]
     metrics:
       receivers: [otlp]
-      processors: [k8sattributes, batch]
-      exporters: [otlphttp/metrics]
+      processors: [k8s_attributes, batch]
+      exporters: [otlp_http/metrics]
