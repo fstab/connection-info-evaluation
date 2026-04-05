@@ -1,6 +1,19 @@
 const express = require('express');
+const http = require('http');
+const https = require('https');
 
 const app = express();
+
+function httpGet(url) {
+    return new Promise((resolve, reject) => {
+        const client = url.protocol === 'https:' ? https : http;
+        const request = client.get(url, (response) => {
+            response.resume(); // consume and discard body
+            resolve(response);
+        });
+        request.on('error', reject);
+    });
+}
 
 app.get('/', async (req, res) => {
     const targetUrl = req.query['target_url'];
@@ -12,8 +25,8 @@ app.get('/', async (req, res) => {
     try {
         const url = new URL(targetUrl);
         console.log(`> GET ${url}`);
-        const response = await fetch(url);
-        for (const [name, value] of response.headers.entries()) {
+        const response = await httpGet(url);
+        for (const [name, value] of Object.entries(response.headers)) {
             console.log(`< ${name}: ${value}`);
         }
         console.log();
