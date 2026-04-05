@@ -123,3 +123,37 @@ Target URL `http://10.104.239.143:8080` (the server's ClusterIP)
 | Client Span `server.port` | `8080` |
 | Server Span `server.address` | `10.104.239.143` |
 | Server Span `server.port` | `8080` |
+
+## Node Express -> Node Express
+
+### namespace-a -> namespace-b
+
+Target URL `http://server-node-express.namespace-b.svc.cluster.local:8080`
+
+|                              |                                                                                                                                   |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| HTTP Host header             | `server-node-express.namespace-b.svc.cluster.local:8080`                                                                          |
+| Client Span `server.address` | missing, but the deprecated `net.peer.name` is present with the correct value `server-node-express.namespace-b.svc.cluster.local` |
+| Client Span `server.port`    | missing, but the deprecated `net.peer.port` is present with the correct value `8080`                                              |
+| Server Span `server.address` | missing, but the deprecated `net.host.name` is present with the correct value `server-node-express.namespace-b.svc.cluster.local` |
+| Server Span `server.port`    | missing, but the deprecated `net.host.port` is present with the correct value `8080`                                              |
+
+Target URL `http://server-node-express.namespace-b:8080`
+
+|                              |                                                                                                                                   |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| HTTP Host header             | `server-node-express.namespace-b:8080`                                                                          |
+| Client Span `server.address` | missing, but the deprecated `net.peer.name` is present with the correct value `server-node-express.namespace-b` |
+| Client Span `server.port`    | missing, but the deprecated `net.peer.port` is present with the correct value `8080`                                              |
+| Server Span `server.address` | missing, but the deprecated `net.host.name` is present with the correct value `server-node-express.namespace-b` |
+| Server Span `server.port`    | missing, but the deprecated `net.host.port` is present with the correct value `8080`                                              |
+
+Target URL `http://10.244.1.10:8080` (the server's ClusterIP)
+
+| | |
+| --- | --- |
+| HTTP Host header | `10.244.1.10:8080` |
+| Client Span `server.address` | missing, but the deprecated `net.peer.name` is present with the correct value `10.244.1.10` |
+| Client Span `server.port`    | missing, but the deprecated `net.peer.port` is present with the correct value `8080`                                              |
+| Server Span `server.address` | missing, but the deprecated `net.host.name` is present with the correct value `10.244.1.10` |
+| Server Span `server.port`    | missing, but the deprecated `net.host.port` is present with the correct value `8080`                                              |
