@@ -1,0 +1,13 @@
+{
+  "name": "client-nodejs",
+  "version": "1.0.0",
+  "description": "Node.js client for connection-info-evaluation",
+  "main": "client.js",
+  "scripts": {
+    "start": "node client.js"
+  },
+  "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.72.0",
+    "express": "^5.2.1"
+  }
+}
