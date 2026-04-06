@@ -192,10 +192,10 @@ Target URL `http://server-node-express:8080`
 
 Target URL `http://10.96.231.246:8080` (the server's ClusterIP)
 
-|                              |                                                                                                                                      |
-|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| HTTP Host header             | `10.96.231.246:8080`                                                                                                                 |
-| Client Span `server.address` | `10.96.231.246`<br>JavaScript instrumentation uses the old (deprecated) label name `net.peer.name` rather than `server.address`.     |
-| Client Span `server.port`    | `8080`<br>JavaScript instrumentation uses the old (deprecated) label name `net.peer.port` rather than `server.port`                  |
-| Server Span `server.address` | `10.96.231.24~~~~6`<br>JavaScript instrumentation uses the old (deprecated) label name `net.host.name` rather than `server.address`. |
-| Server Span `server.port`    | `8080`<br>JavaScript instrumentation uses the old (deprecated) label name `net.host.port` rather than `server.port`                  |
+|                              |                                                                                                                                  |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| HTTP Host header             | `10.96.231.246:8080`                                                                                                             |
+| Client Span `server.address` | `10.96.231.246`<br>JavaScript instrumentation uses the old (deprecated) label name `net.peer.name` rather than `server.address`. |
+| Client Span `server.port`    | `8080`<br>JavaScript instrumentation uses the old (deprecated) label name `net.peer.port` rather than `server.port`              |
+| Server Span `server.address` | `10.96.231.246`<br>JavaScript instrumentation uses the old (deprecated) label name `net.host.name` rather than `server.address`. |
+| Server Span `server.port`    | `8080`<br>JavaScript instrumentation uses the old (deprecated) label name `net.host.port` rather than `server.port`              |
