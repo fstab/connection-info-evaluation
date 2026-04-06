@@ -135,7 +135,7 @@ Target URL `http://server-node-express.namespace-b.svc.cluster.local:8080`
 | HTTP Host header             | `server-node-express.namespace-b.svc.cluster.local:8080`                                                                                |
 | Client Span `server.address` | `server-node-express.namespace-b.svc.cluster.local`<br>JavaScript instrumentation uses the deprecated label name `net.peer.name`.       |
 | Client Span `server.port`    | `8080`<br>JavaScript instrumentation uses the deprecated label name `net.peer.port`.                                                    |
-| Server Span `server.address` | `server-node-express.namespace-b.svc.cluster.local`<br>Node: JavaScript instrumentation uses the deprecated label name `net.host.name`. |
+| Server Span `server.address` | `server-node-express.namespace-b.svc.cluster.local`<br>JavaScript instrumentation uses the deprecated label name `net.host.name`. |
 | Server Span `server.port`    | `8080`<br>JavaScript instrumentation uses the deprecated label name `net.host.port`.                                                    |
 
 Target URL `http://server-node-express.namespace-b:8080`
