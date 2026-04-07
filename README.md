@@ -217,3 +217,37 @@ Target URL `http://server-python-flask.namespace-b.svc.cluster.local:8080`
 | Client Span `server.port`    | `8080`                                                   |
 | Server Span `server.address` | `server-python-flask.namespace-b.svc.cluster.local`      |
 | Server Span `server.port`    | `8080`                                                   |
+
+## .NET -> .NET
+
+### namespace-a -> namespace-b
+
+Target URL `http://server-dotnet.namespace-b.svc.cluster.local:8080`
+
+|                              |                                                    |
+|------------------------------|----------------------------------------------------|
+| HTTP Host header             | `server-dotnet.namespace-b.svc.cluster.local:8080` |
+| Client Span `server.address` | `server-dotnet.namespace-b.svc.cluster.local`      |
+| Client Span `server.port`    | `8080`                                             |
+| Server Span `server.address` | `server-dotnet.namespace-b.svc.cluster.local`      |
+| Server Span `server.port`    | `8080`                                             |
+
+Target URL `http://server-dotnet.namespace-b:8080`
+
+|                              |                                  |
+|------------------------------|----------------------------------|
+| HTTP Host header             | `server-dotnet.namespace-b:8080` |
+| Client Span `server.address` | `server-dotnet.namespace-b`      |
+| Client Span `server.port`    | `8080`                           |
+| Server Span `server.address` | `server-dotnet.namespace-b`      |
+| Server Span `server.port`    | `8080`                           |
+
+Target URL `http://10.107.89.20:8080` (the server's ClusterIP)
+
+|                              |                     |
+|------------------------------|---------------------|
+| HTTP Host header             | `10.107.89.20:8080` |
+| Client Span `server.address` | `10.107.89.20`      |
+| Client Span `server.port`    | `8080`              |
+| Server Span `server.address` | `10.107.89.20`      |
+| Server Span `server.port`    | `8080`              |
