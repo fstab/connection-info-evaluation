@@ -51,6 +51,8 @@ spec:
           - name: OTEL_RESOURCE_ATTRIBUTES
             value: k8s.pod.ip=$(POD_IP)
             # value: "k8s.pod.ip=$(POD_IP),service.namespace=default,span.metrics.skip=true"
+          - name: OTEL_SEMCONV_STABILITY_OPT_IN
+            value: http
 ---
 apiVersion: v1
 kind: Service
