@@ -251,3 +251,45 @@ Target URL `http://10.107.89.20:8080` (the server's ClusterIP)
 | Client Span `server.port`    | `8080`              |
 | Server Span `server.address` | `10.107.89.20`      |
 | Server Span `server.port`    | `8080`              |
+
+### default -> default
+
+Target URL `http://server-dotnet.default.svc.cluster.local:8080`
+
+|                              |                                                |
+|------------------------------|------------------------------------------------|
+| HTTP Host header             | `server-dotnet.default.svc.cluster.local:8080` |
+| Client Span `server.address` | `server-dotnet.default.svc.cluster.local`      |
+| Client Span `server.port`    | `8080`                                         |
+| Server Span `server.address` | `server-dotnet.default.svc.cluster.local`      |
+| Server Span `server.port`    | `8080`                                         |
+
+Target URL `http://server-dotnet.default:8080`
+
+|                              |                              |
+|------------------------------|------------------------------|
+| HTTP Host header             | `server-dotnet.default:8080` |
+| Client Span `server.address` | `server-dotnet.default`      |
+| Client Span `server.port`    | `8080`                       |
+| Server Span `server.address` | `server-dotnet.default`      |
+| Server Span `server.port`    | `8080`                       |
+
+Target URL `http://server-dotnet:8080`
+
+|                              |                      |
+|------------------------------|----------------------|
+| HTTP Host header             | `server-dotnet:8080` |
+| Client Span `server.address` | `server-dotnet`      |
+| Client Span `server.port`    | `8080`               |
+| Server Span `server.address` | `server-dotnet`      |
+| Server Span `server.port`    | `8080`               |
+
+Target URL `http://10.96.231.246:8080` (the server's ClusterIP)
+
+|                              |                     |
+|------------------------------|---------------------|
+| HTTP Host header             | `10.106.19.14:8080` |
+| Client Span `server.address` | `10.106.19.14`      |
+| Client Span `server.port`    | `8080`              |
+| Server Span `server.address` | `10.106.19.14`      |
+| Server Span `server.port`    | `8080`              |
